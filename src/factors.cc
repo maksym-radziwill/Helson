@@ -1,8 +1,6 @@
 #include <vector>
 
-/* This file contains a simple standalone implementation
-   of the Pollard Rho algorithm suplemented with a simple
-   trial division to cover the cases of failure */
+/* Simple Pollard Rho implementation */
 
 int gcd(int a, int b){
   int r;
