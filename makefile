@@ -12,11 +12,11 @@ STATIC_LIB = -Wl,--whole-archive -lgmp -lmpfr -lpthread -Wl,--no-whole-archive -
 # ****************************************************
 
 helson: main.o helson.o testing.o factors.o rule.o thread.o random.o logs.o
-	$(CXX) $(CXXFLAGS) $(LIB) -o helson obj/main.o obj/helson.o obj/testing.o obj/factors.o obj/rule.o obj/thread.o obj/random.o obj/logs.o
+	$(CXX) $(CXXFLAGS) $(LIB) -o helson obj/main.o obj/helson.o obj/testing.o obj/factors.o obj/rule.o obj/thread.o obj/random.o obj/logs.o -o helson
 
 static: main_static.o helson_static.o testing_static.o factors_static.o rule_static.o thread_static.o rule_static.o random_static.o logs_static.o
-	$(CXX) $(CXX_FAST_FLAGS) $(STATIC_LIB) -o static obj/main.o obj/helson.o obj/testing.o obj/factors.o obj/rule.o obj/thread.o obj/random.o obj/logs.o
-	strip static
+	$(CXX) $(CXX_FAST_FLAGS) $(STATIC_LIB) -o static obj/main.o obj/helson.o obj/testing.o obj/factors.o obj/rule.o obj/thread.o obj/random.o obj/logs.o -o helson
+	strip helson
 
 debug: main.o helson.o testing.o factors.o rule.o thread.o
 	$(CXX) $(CXXFLAGS) $(LIB) -pg -o debug obj/main.o obj/helson.o obj/testing.o obj/factors.o obj/rule.o
@@ -71,7 +71,5 @@ factors_static.o: src/factors.cc src/helson.h
 
 clean:
 	rm -f obj/*.o 
-	rm static
-	rm debug
 	rm helson
 
