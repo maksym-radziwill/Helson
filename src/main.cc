@@ -16,9 +16,10 @@ int main(int argc, char ** argv){
 
   if(argc < 2){
   usage:
-    cout << "Usage: " << argv[0] << " length -t [num threads] -r [deg. root of unity] -R -L -i [num of iterations]\n"
+    cout << "Usage: " << argv[0] << " length -t [num threads] -r [deg. root of unity] -R -L -i [num of iterations] -m [Moments]\n"
 	 << "-R : Rademacher switch\n"
 	 << "-t : number of threads\n"
+	 << "-m : highest moment to compute\n"
 	 << "-r : highest root of unity used in integral approximation\n"
 	 << "-i : how many time more samples give the length\n"
 	 << "-L : log switch -- logs to helson.log\n";
