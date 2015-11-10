@@ -18,7 +18,6 @@ unsigned long srand_random(const unsigned long seed){
 }
 
 unsigned long mersenne_random(const unsigned long seed){
-  static int init = 0;
   static mt19937 mt(time(0)); 
 
   return mt() % seed; 
