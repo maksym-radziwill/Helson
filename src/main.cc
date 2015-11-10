@@ -37,7 +37,8 @@ int main(int argc, char ** argv){
   //  rule = &prime_rule;
   rule = &default_rule; 
 
-  random_func = &srand_random; 
+  //  random_func = &srand_random; 
+  random_func = &mersenne_random;
   
   while((opt_char = getopt(argc, argv, "t:s:Rm:r:hi:L")) != EOF){
     switch(opt_char){
