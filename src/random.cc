@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 #include "random.h"
 using namespace std;
 
@@ -14,4 +15,11 @@ unsigned long srand_random(const unsigned long seed){
   }
   
   return (rand() % seed);
+}
+
+unsigned long mersenne_random(const unsigned long seed){
+  static int init = 0;
+  static mt19937 mt(time(0)); 
+
+  return mt() % seed; 
 }
