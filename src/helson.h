@@ -21,17 +21,20 @@ class RMF {
   vector<vector<int> > seq; 
   vector<vector<int> >::iterator i; 
   
-  unsigned long (*random_seed)(unsigned long); 
+  unsigned long (*random_seed)(unsigned long, int); 
   bool (*support_rule)(int,int); 
 
   vector<mpreal> sin_val, cos_val;
+
+  int thread_id = 1;
+  int rseed = 1; 
   
  public:
   
   mpreal re = 0;
   mpreal im = 0;
 
-  RMF(int, int, bool (*f)(int,int), unsigned long (*g)(unsigned long));
+  RMF(int, int, bool (*f)(int,int), unsigned long (*g)(unsigned long, int), int, int);
   void randomize();
   void evaluate();
   

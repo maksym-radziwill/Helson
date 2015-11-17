@@ -4,7 +4,7 @@ using namespace mpfr;
 
 void RMF::randomize(){
   for(j = primes.begin(); j != primes.end(); j++)
-    val.at(*j) = random_seed(seed);
+    val.at(*j) = random_seed(seed,thread_id);
 }
 
 void RMF::evaluate(){
@@ -36,11 +36,14 @@ void RMF::evaluate(){
   }
 }
 
-RMF::RMF(int length, int init_seed, bool (*f)(int,int), unsigned long (*g)(unsigned long)){
+RMF::RMF(int length, int init_seed, bool (*f)(int,int), unsigned long (*g)(unsigned long,int), int r_seed, int tid){
   random_seed = g; 
   support_rule = f;
   len = length;
   seed = init_seed;
+  rseed = r_seed;
+  thread_id = tid; 
+  
 
   /* Setup MPFR */
 

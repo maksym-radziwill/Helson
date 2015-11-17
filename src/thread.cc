@@ -21,7 +21,7 @@ void work(const int tid, const int len,
 
   mpreal s = sqrt(support(len));
 
-  RMF rmf(len, seed, rule, random_func);
+  RMF rmf(len, seed, rule, random_func, 0, tid);
 
   logs Logs ("helson.out"); 
   

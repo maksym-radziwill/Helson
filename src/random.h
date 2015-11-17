@@ -1,4 +1,5 @@
 
-extern unsigned long (*random_func)(unsigned long);
-extern unsigned long (srand_random)(unsigned long);
-
+extern unsigned long (*random_func)(unsigned long, int);
+extern unsigned long (def_random)(unsigned long, int); 
+extern unsigned long (srand_random)(unsigned long, int);
+extern unsigned long (mersenne_random)(unsigned long, int); 

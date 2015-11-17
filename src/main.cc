@@ -2,15 +2,22 @@
 /* The data can be then later analyzed with some more efficient
    programming language or so */
 
+/* There is a problem here with the use of randomness in threads
+   because each thread gets the same seed of randomness therefore
+   weakining the final result of adding up */
+
 #include "helson.h"
 #include "random.h"
 #include "rule.h"
 #include "thread.h"
+#include <random>
 #include <unistd.h>
 
 using namespace std;
 
 vector<mpreal> results;
+
+static int num_threads = 1; 
 
 int main(int argc, char ** argv){
 
@@ -32,13 +39,15 @@ int main(int argc, char ** argv){
   int ITER = 20;
   int loging = 0;   
   int opt_char, highest_moment = 1; 
-  int num_threads = 1; 
   
   //  rule = &prime_rule;
   rule = &default_rule; 
 
   //  random_func = &srand_random; 
-  random_func = &mersenne_random;
+  // mt19937 mt(time(0)); 
+  random_func = &def_random;
+  
+  //  random_func = &mt;
   
   while((opt_char = getopt(argc, argv, "t:s:Rm:r:hi:L")) != EOF){
     switch(opt_char){
@@ -55,8 +64,9 @@ int main(int argc, char ** argv){
   
   thread t[num_threads]; 
 
-  for(int i = 0; i < num_threads; ++i)
-    t[i] = thread(work, i, len, seed, highest_moment, ITER * support(len) / num_threads, loging);  
+  for(int i = 0; i < num_threads; ++i){
+    t[i] = thread(work, i, len, seed, highest_moment, ITER * support(len) / num_threads, loging);
+  }
     
   for(int i = 0; i < num_threads; ++i)
     t[i].join(); 
