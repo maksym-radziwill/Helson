@@ -1,3 +1,4 @@
+#include <map>
 #include "mpreal.h"
 #include <vector>
 #include <string>
@@ -6,15 +7,23 @@ using namespace std;
 using namespace mpfr;
 
 class logs {
-  union double_binary { char arr[8];  double d; };
-  vector <double> logs_re;
-  vector <double> logs_im;
+  double prec; 
+  map<double, int> logs_re;
+  map<double, int> logs_im;
+  map<double, int> logs_abs; 
   unsigned long counter = 0;
   string filename; 
+  double round(double); 
+  void add_maps(map<double,int> &, const map<double,int> &); 
+  void print(ofstream &, const map<double,int> &);
  public:
-  logs(string); 
+  logs(string, double); 
+  logs operator+(const logs &);
+  logs operator+=(const logs &); 
   void add(mpreal, mpreal);
   void dump();
+  void tex(); 
   void clear(); 
   unsigned long size();
 };
+
