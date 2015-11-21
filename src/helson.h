@@ -14,11 +14,14 @@ class RMF {
   mpreal pi;
   
   int len, seed;
- 
-  vector<int> primes, val, freq;
+
+  vector<int> primes;
+  
+  vector<int> val, freq;
   vector<int>::iterator j;
   
   vector<vector<int> > seq; 
+
   vector<vector<int> >::iterator i; 
   
   unsigned long (*random_seed)(unsigned long, int); 

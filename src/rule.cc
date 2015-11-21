@@ -12,7 +12,7 @@ int support(int len){
 }
 
 bool arith_rule(int n , int len){
-  if(n % 101 == 1)
+  if(n % 2 == 1)
     return true;
   else
     return false; 

@@ -69,13 +69,13 @@ logs::logs(string name, double precision, int gauss){
 double logs::gen_gaussian(){
   static default_random_engine generator;
   /* The Gaussian approximating the real and imaginary part has variance 1/2 */
-  normal_distribution<double> distribution(0.0,0.5);
+  normal_distribution<double> distribution(0.0,std::sqrt(0.5));
   return distribution(generator); 
 }
 
 double logs::gen_gaussian_abs(){
   static default_random_engine generator;
-  normal_distribution<double> distribution(0.0,0.5);
+  normal_distribution<double> distribution(0.0,std::sqrt(0.5));
   double number_re = distribution(generator);
   double number_im = distribution(generator);
   return std::sqrt(number_re*number_re + number_im*number_im); 
