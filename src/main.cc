@@ -69,17 +69,10 @@ int main(int argc, char ** argv){
   int gaussian_gen = 0; 
   double prec = 0.01; 
   
-<<<<<<< HEAD
   //  rule = &prime_rule;
   //rule = &arith_rule; 
-  //    rule = &default_rule; 
-  rule = &smooth_rule; 
-=======
-  // rule = &prime_rule;
-  //rule = &arith_rule; 
-  rule = &default_rule; 
-  //    rule = &smooth_rule; 
->>>>>>> 750cafbb965f24bfb65df27af6a79d0a58a22270
+      rule = &default_rule; 
+  //rule = &smooth_rule; 
   
   //  random_func = &srand_random; 
   random_func = &def_random;
