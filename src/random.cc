@@ -20,8 +20,8 @@ unsigned long return_seed(){
 
 unsigned long def_random(const unsigned long seed, const int thread){
   uniform_int_distribution<> d(1, seed);
-  static vector<mt19937> random_map(100);
-  static vector<int> init(100);
+  static vector<mt19937> random_map(max_thread);
+  static vector<int> init(max_thread);
   
   if(init[thread] == 0){
     random_map[thread].seed(return_seed());

@@ -11,6 +11,13 @@ int support(int len){
   return N; 
 }
 
+bool arith_rule(int n , int len){
+  if(n % 101 == 1)
+    return true;
+  else
+    return false; 
+}
+
 bool smooth_rule(int n, int len){
   if(n == 1) return true;
   

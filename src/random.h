@@ -1,3 +1,4 @@
+const int max_thread = 4096; 
 
 extern unsigned long (*random_func)(unsigned long, int);
 extern unsigned long (def_random)(unsigned long, int); 
