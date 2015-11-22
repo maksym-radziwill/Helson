@@ -11,12 +11,15 @@ void logs::add_maps(map<double,int> & dest, const map<double,int> & src){
 }
 
 logs logs::operator+(const logs & L){
-  int gaussian_gen = 0;
+  double gaussian_gen = 0;
   double prec_gen = 0; 
-  
-  if(L.gaussian + this-> gaussian > 0)
-    gaussian_gen = 1; 
 
+  /* This is risky because it makes + a non-associative operator */
+  /* Would be much safer to move this into += and then it's clear
+     what is over-written by what */ 
+  
+  gaussian_gen = L.gaussian_var;
+  
   if(this->prec <= L.prec)
     prec_gen = this->prec;
   else
@@ -46,7 +49,7 @@ logs logs::operator+(const logs & L){
 /* This is buggy and is not currently working */
 
 logs logs::operator+=(const logs & L){
-  logs new_logs(this->filename, this->prec, this->gaussian);
+  logs new_logs(this->filename, this->prec, this->gaussian_var);
   new_logs = this->operator+(L);
   return new_logs;
 }
@@ -60,22 +63,22 @@ double logs::round(const double f){
   }
 }
 
-logs::logs(string name, double precision, int gauss){
+logs::logs(string name, double precision, double gaussian){
   filename = name;
   prec = precision;
-  gaussian = gauss; 
+  gaussian_var = gaussian; 
 }
 
 double logs::gen_gaussian(){
   static default_random_engine generator;
   /* The Gaussian approximating the real and imaginary part has variance 1/2 */
-  normal_distribution<double> distribution(0.0,std::sqrt(0.5));
+  normal_distribution<double> distribution(0.0,std::sqrt(gaussian_var));
   return distribution(generator); 
 }
 
 double logs::gen_gaussian_abs(){
   static default_random_engine generator;
-  normal_distribution<double> distribution(0.0,std::sqrt(0.5));
+  normal_distribution<double> distribution(0.0,std::sqrt(gaussian_var));
   double number_re = distribution(generator);
   double number_im = distribution(generator);
   return std::sqrt(number_re*number_re + number_im*number_im); 
@@ -87,7 +90,7 @@ void logs::add(mpreal re, mpreal im){
   /* Might be somewhat slow */
   logs_abs[round((double) sqrt(re*re + im*im))]++; 
  
-  if(gaussian){
+  if(gaussian_var > 0){
     logs_gaussian[round((double) gen_gaussian())]++;
     logs_gaussian_abs[round((double) gen_gaussian_abs())]++; 
   }
@@ -135,7 +138,7 @@ void logs::dump(){
   if(file) print(file, logs_abs);
   file.close(); 
 
-  if(gaussian){
+  if(gaussian_var > 0){
     open_file(filename + ".normal", file);
     if(file) print(file, logs_gaussian);
     file.close();

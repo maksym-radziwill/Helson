@@ -16,7 +16,7 @@ class logs {
   map<double, int> logs_gaussian_abs;
   
   unsigned long counter = 0;
-  int gaussian = 0; 
+  double gaussian_var = 0.0; 
   string filename; 
   double round(double); 
   void add_maps(map<double,int> &, const map<double,int> &); 
@@ -28,7 +28,7 @@ class logs {
   
  public:
 
-  logs(string, double, int); 
+  logs(string, double, double); 
   logs operator+(const logs &);
   logs operator+=(const logs &); 
   void add(mpreal, mpreal);

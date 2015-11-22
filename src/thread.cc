@@ -13,12 +13,12 @@ mutex mu;
 extern vector<mpreal> results;
 extern void log_add(int, mpreal, mpreal); 
 
-logs Master_Log("helson.out", 0.01, 0); 
+logs Master_Log("helson.out", 0.01, 0.5); 
 
 void work(const int tid, const int len,
 	  const int seed, const int highest_moment,
 	  const int iterations, const int loging,
-	  const double prec, const int gaussian){
+	  const double prec, const double gaussian_var){
 
   vector<mpreal> sum (highest_moment);
 
@@ -26,7 +26,7 @@ void work(const int tid, const int len,
 
   RMF rmf(len, seed, rule, random_func, 0, tid);
 
-  logs Logs ("helson.out",prec,gaussian); 
+  logs Logs ("helson.out",prec,gaussian_var); 
   
   results.resize(highest_moment);
 

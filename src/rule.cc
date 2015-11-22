@@ -23,7 +23,7 @@ bool smooth_rule(int n, int len){
   
   std::vector<int> factors;
   factorize(factors, n);
-  if(*std::max_element(factors.begin(),factors.end()) > 20)
+  if(*std::min_element(factors.begin(),factors.end()) > 20)
     return true; 
   else
     return false;

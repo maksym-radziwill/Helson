@@ -47,14 +47,14 @@ int main(int argc, char ** argv){
 
   if(argc < 2){
   usage:
-    cout << "Usage: " << argv[0] << " length -t [num threads] -r [deg. root of unity] -R -L -i [num of iterations] -m [Moments] -G -P [precision]\n"
+    cout << "Usage: " << argv[0] << " length -t [num threads] -r [deg. root of unity] -R -L -i [num of iterations] -m [Moments] -G [Var] -P [precision]\n"
 	 << "-R : Rademacher switch\n"
 	 << "-t : number of threads\n"
 	 << "-m : highest moment to compute\n"
 	 << "-r : highest root of unity used in integral approximation\n"
 	 << "-i : how many time more samples give the length\n"
 	 << "-L : log switch -- logs to helson.log\n"
-	 << "-G : Generate Gaussian random sample\n"
+	 << "-G : Generate Gaussian random sample with variance Var\n"
 	 << "-P : precision of logs\n"; 
 
     return 1; 
@@ -66,18 +66,18 @@ int main(int argc, char ** argv){
   int loging = 0;   
   int opt_char, highest_moment = 1; 
   int num_threads = 1; 
-  int gaussian_gen = 0; 
+  double gaussian_var = 0; 
   double prec = 0.01; 
   
   //  rule = &prime_rule;
   //rule = &arith_rule; 
-      rule = &default_rule; 
-  //rule = &smooth_rule; 
+  rule = &default_rule; 
+  //    rule = &smooth_rule; 
   
   //  random_func = &srand_random; 
   random_func = &def_random;
   
-  while((opt_char = getopt(argc, argv, "t:s:Rm:r:hi:LGP")) != EOF){
+  while((opt_char = getopt(argc, argv, "t:s:Rm:r:hi:LG:P")) != EOF){
     switch(opt_char){
     case 'L': loging = 1; break;
     case 't': if(atoi(optarg) > 0) num_threads = atoi(optarg); break;
@@ -85,7 +85,7 @@ int main(int argc, char ** argv){
     case 'R': rule = &rademacher_rule; break;
     case 'm': if(atoi(optarg) > 0) highest_moment = atoi(optarg); break;
     case 'i': if(atoi(optarg) > 0) ITER = atoi(optarg); break;
-    case 'G': gaussian_gen = 1; break;
+    case 'G': if(atof(optarg) > 0) gaussian_var = atof(optarg); break;
     case 'P': if(atof(optarg) > 0) prec = atof(optarg); break; 
     case 'h': goto usage;
     case '?': goto usage; 
@@ -95,7 +95,7 @@ int main(int argc, char ** argv){
   thread t[num_threads]; 
 
   for(int i = 0; i < num_threads; ++i){
-    t[i] = thread(work, i, len, seed, highest_moment, ITER * support(len) / num_threads, loging, prec, gaussian_gen);
+    t[i] = thread(work, i, len, seed, highest_moment, ITER * support(len) / num_threads, loging, prec, gaussian_var);
   }
     
   for(int i = 0; i < num_threads; ++i)
@@ -105,7 +105,7 @@ int main(int argc, char ** argv){
   /* Output the result - Slightly hacky here */ 
   
   ostringstream out; 
-  prepare_output(out, len, ITER*support(len), num_threads, loging, prec, gaussian_gen); 
+  prepare_output(out, len, ITER*support(len), num_threads, loging, prec, gaussian_var); 
     
   for(int j = 0; j < highest_moment; j++){
     out << "Final result, moment " << (int) (j + 1) << " : " << (double) results.at(j) / num_threads << "\n"; 
