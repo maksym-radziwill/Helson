@@ -4,10 +4,10 @@
 # Variables to control Makefile operation
 
 CXX = g++
-CXXFLAGS = -Wall -Ofast -funroll-all-loops -std=c++11 -fomit-frame-pointer -ftree-loop-if-convert -ftree-loop-if-convert-stores -ftree-loop-distribution -ftree-parallelize-loops=16 -fprofile-use -fstrict-aliasing
-CXX_FAST_FLAGS = -Wall -Ofast -std=c++11 -funroll-all-loops -fomit-frame-pointer -ftree-loop-if-convert -ftree-loop-if-convert-stores -ftree-loop-distribution -ftree-parallelize-loops=16 -fstrict-aliasing 
-LIB = -lmpfr -lgmp -pthread
-STATIC_LIB = -Wl,--whole-archive -lgmp -lmpfr -lpthread -Wl,--no-whole-archive -static
+CXXFLAGS =  -Wall -Ofast -funroll-all-loops -std=c++11 -ftree-parallelize-loops=32
+CXX_FAST_FLAGS = -Wall -Ofast -std=c++11 -funroll-all-loops -ftree-parallelize-loops=32 
+LIB = -lmpfr -lgmp -pthread 
+STATIC_LIB = -Wl,--whole-archive -lgmp -lmpfr -lpthread -Wl,--no-whole-archive -static  
 
 # ****************************************************
 
