@@ -20,10 +20,13 @@ bool arith_rule(int n , int len){
 
 bool smooth_rule(int n, int len){
   if(n == 1) return true;
+
+  if(n % 2 == 0) return false;
+  else return true; 
   
   std::vector<int> factors;
   factorize(factors, n);
-  if(*std::min_element(factors.begin(),factors.end()) > 20)
+  if(*std::min_element(factors.begin(),factors.end()) > 5)
     return true; 
   else
     return false;

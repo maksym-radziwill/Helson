@@ -69,10 +69,11 @@ int main(int argc, char ** argv){
   double gaussian_var = 0; 
   double prec = 0.01; 
   
-  //  rule = &prime_rule;
+  // rule = &prime_rule;
   //rule = &arith_rule; 
   rule = &default_rule; 
-  //    rule = &smooth_rule; 
+  //  rule = &smooth_rule; 
+  //  rule = &rademacher_rule; 
   
   //  random_func = &srand_random; 
   random_func = &def_random;
